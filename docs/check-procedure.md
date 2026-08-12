@@ -49,6 +49,9 @@
 1. `state.json` を今回の結果で上書きする（`last_checked` を実行時刻に更新。変化があれば `last_change_detected` も更新）。
 2. `history.md` の表に1行追記する。
 3. ダッシュボードHTML `dashboard.html` を最新状態に更新し、**同じURLへ再発行する**（`docs/dashboard-url.txt` に記録されたURLを `url` 引数に渡す。新しいURLを作らないこと）。
+
+   > 定期実行セッションで Artifact ツールが使えなかった場合は、`dashboard.html` の更新とコミットだけ行い、応答の末尾に `※ダッシュボードの再発行ができませんでした（Artifactツール未提供）` と1行付けること。空室ありの通知そのものは必ず出す。
+
 4. ブランチ `claude/kitasenjuku-property-check-gm5imz` にコミットして push する。コミットメッセージは `chore: 空室チェック YYYY-MM-DD（変化なし / 空室あり）`。
 
 ## 6. やらないこと
