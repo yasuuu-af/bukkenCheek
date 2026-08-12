@@ -1,0 +1,23 @@
+{
+  "last_checked": "2026-08-12T09:00:00+09:00",
+  "last_change_detected": null,
+  "buildings": {
+    "makia": {
+      "name": "デュエット北千住マキア",
+      "vacancy": false,
+      "available_rooms": [],
+      "per_source": {
+        "suumo_library": "募集中の部屋なし（過去掲載アーカイブ表示）",
+        "assetnavi_rooms": "満室（9室すべて満室・賃料マスク表示）"
+      }
+    },
+    "serena": {
+      "name": "デュエット北千住セレナ",
+      "vacancy": false,
+      "available_rooms": [],
+      "per_source": {
+        "suumo_library": "募集中の部屋なし（過去掲載アーカイブ表示）"
+      }
+    }
+  }
+}
