@@ -44,7 +44,41 @@
 
 `変化なし（マキア・セレナともに空室なし）` の1行だけを返して静かに終了する。余計な報告はしない。
 
-## 5. 記録の更新
+## 5. Discord へ通知
+
+`scripts/notify_discord.py` を使う。Webhook URL は環境変数 `DISCORD_WEBHOOK_URL` から読まれる。
+
+**空室ありのとき（必ず送る）:**
+
+```bash
+python3 scripts/notify_discord.py \
+  --status vacant \
+  --headline "デュエット北千住マキア 1LDK 3階 128,000円" \
+  --detail "$(cat <<'MD'
+| 項目 | 内容 |
+|---|---|
+| 間取り | 1LDK 46.19m² |
+| 賃料 | 128,000円（管理費 8,000円） |
+| 敷/礼 | 1ヶ月 / なし |
+| 入居可 | 即入居可 |
+
+[SUUMOで見る](https://suumo.jp/library/tf_13/sc_13121/to_1001775437/) · TEL 0120-94-5511
+MD
+)" \
+  --checked-at "$(date -Iseconds)"
+```
+
+**取得失敗のソースがあったとき:** `--status error --detail "<どのソースがどう失敗したか>"` で送る。黙って握り潰さない。
+
+**変化がなかったとき:** `notify_discord.py` を**呼ばない**（`notify_policy: change_only`）。
+
+> 毎回ハートビートが欲しくなったら、`targets.json` の `notify_policy` を `every_run` に変え、変化なしの回も `--status none` で送るようにする。
+
+`DISCORD_WEBHOOK_URL` が未設定でスクリプトが終了した場合は、その旨を応答の末尾に1行書く。空室の報告自体は必ず出す。
+
+**Webhook URL は絶対にコミット・出力しないこと。** このリポジトリは public。
+
+## 6. 記録の更新
 
 1. `state.json` を今回の結果で上書きする（`last_checked` を実行時刻に更新。変化があれば `last_change_detected` も更新）。
 2. `history.md` の表に1行追記する。
@@ -54,7 +88,7 @@
 
 4. ブランチ `claude/kitasenjuku-property-check-gm5imz` にコミットして push する。コミットメッセージは `chore: 空室チェック YYYY-MM-DD（変化なし / 空室あり）`。
 
-## 6. やらないこと
+## 7. やらないこと
 
 - 不動産会社への問い合わせ・申し込みなど、外部への連絡は行わない。空室を見つけたら報告するだけ。
 - 変化がないのに通知を送らない。

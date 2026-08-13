@@ -1,0 +1,5 @@
+# Webhook URL は秘密情報。このリポジトリは public なので絶対にコミットしないこと。
+discord-webhook
+*.webhook
+.env
+.env.*

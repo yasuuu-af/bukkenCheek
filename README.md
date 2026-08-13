@@ -6,9 +6,24 @@
 
 **空室が出たときだけ**通知します（変化なしの週は無音）。
 
+- **Discord** → `scripts/notify_discord.py` が Webhook へ埋め込みメッセージを投稿
 - メール → tademoto.y@gmail.com
 - スマホの Claude アプリへプッシュ通知
 - 常設ダッシュボード（URLは `docs/dashboard-url.txt`）は毎回最新に更新
+
+### Discord の設定
+
+Webhook URL は**秘密情報**です。このリポジトリは public なので絶対にコミットしないでください（`.gitignore` 済み）。
+
+1. Discord で 対象チャンネル → 編集 → 連携サービス → ウェブフック → 新しいウェブフック → **ウェブフックURLをコピー**
+2. その URL を環境変数 `DISCORD_WEBHOOK_URL` に設定する
+   （claude.ai/code の Environment 設定に入れておくと、定期実行セッションにも引き継がれます）
+3. 送信テスト:
+
+```bash
+python3 scripts/notify_discord.py --status none --detail "疎通テスト" --dry-run  # 内容確認だけ
+python3 scripts/notify_discord.py --status none --detail "疎通テスト"           # 実際に送信
+```
 
 ## ファイル構成
 
@@ -20,6 +35,7 @@
 | `docs/check-procedure.md` | 定期セッションが毎回実行する手順書 |
 | `docs/dashboard-url.txt` | ダッシュボードの固定URL |
 | `dashboard.html` | ダッシュボードのソース |
+| `scripts/notify_discord.py` | Discord へ結果を投稿 |
 
 ## 監視対象
 
