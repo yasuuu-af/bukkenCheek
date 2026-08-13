@@ -29,6 +29,14 @@ import urllib.request
 DASHBOARD_URL = "https://claude.ai/code/artifact/54381015-6267-4a8f-b6d3-4db54ad305c2"
 REPO_URL = "https://github.com/yasuuu-af/bukkenCheek"
 
+# 毎回の投稿に必ず載せる監視元リンク。ここを見れば自分でも確認できる。
+SOURCE_LINKS = [
+    ("マキア · SUUMO",     "https://suumo.jp/library/tf_13/sc_13121/to_1001775437/"),
+    ("マキア · アセットナビ", "https://www.assetnavi.co.jp/rent/5752/rooms"),
+    ("セレナ · SUUMO",     "https://suumo.jp/library/tf_13/sc_13121/to_1001133916/"),
+    ("セレナ · 仲介",       "https://kitasenjyu.airenthome.co.jp/build-3758376/"),
+]
+
 # 空室あり=緑（良い知らせ）／変化なし=藍／取得失敗=琥珀
 STYLES = {
     "vacant": {"color": 0x0E7A57, "title": "🏠 空室が出ました"},
@@ -76,6 +84,16 @@ def build_payload(status: str, headline: str, detail: str, checked_at: str) -> d
         "fields": [
             {"name": "物件", "value": "デュエット北千住 マキア / セレナ", "inline": True},
             {"name": "チェック日時", "value": checked_at or "—", "inline": True},
+            {
+                "name": "監視元URL",
+                "value": "\n".join(f"・[{label}]({url})" for label, url in SOURCE_LINKS),
+                "inline": False,
+            },
+            {
+                "name": "ダッシュボード",
+                "value": DASHBOARD_URL,
+                "inline": False,
+            },
         ],
         "footer": {"text": "北千住デュエット空室ウォッチ · 月・水・金 09:00 JST"},
     }
