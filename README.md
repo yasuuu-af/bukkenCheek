@@ -30,17 +30,30 @@ python3 scripts/notify_discord.py --status none --detail "疎通テスト" --dry
 python3 scripts/notify_discord.py --status none --detail "疎通テスト"           # 実際に送信
 ```
 
+## 実行
+
+**判定はすべて Python が行います。AI は関与しません。**
+
+```bash
+python3 scripts/check_vacancy.py            # 取得→判定→Discord通知→記録更新
+python3 scripts/check_vacancy.py --dry-run  # 取得と判定だけ（送信も書き込みもなし）
+python3 scripts/check_vacancy.py --commit   # 記録を commit && push まで
+python3 scripts/check_vacancy.py --fixture ミレアビターレ北千住   # 空室ありの動作確認
+```
+
 ## ファイル構成
 
 | ファイル | 役割 |
 |---|---|
+| `scripts/check_vacancy.py` | **本体。**取得・判定・差分・通知・記録を全部やる |
+| `scripts/notify_discord.py` | Discord へ結果を投稿 |
 | `targets.json` | 監視対象の建物とURL一覧。**追加・削除はここを編集** |
 | `state.json` | 前回の空室状態。差分判定の基準 |
 | `history.md` | 毎回のチェック結果ログ |
-| `docs/check-procedure.md` | 定期セッションが毎回実行する手順書 |
+| `docs/check-procedure.md` | 判定ロジックの根拠と運用手順 |
 | `docs/dashboard-url.txt` | ダッシュボードの固定URL |
 | `dashboard.html` | ダッシュボードのソース |
-| `scripts/notify_discord.py` | Discord へ結果を投稿 |
+| `.github/workflows/check-vacancy.yml` | GitHub Actions で自動実行する場合の定義 |
 
 ## 監視対象
 
@@ -53,6 +66,17 @@ python3 scripts/notify_discord.py --status none --detail "疎通テスト"      
 - 仲介各社ページ（アイレントホーム／シティモバイル／ハウスコム）
 
 > セレナはアセットナビに建物ページが存在しないため、SUUMO と仲介各社ページで補完しています。
+
+## 判定ロジック
+
+| サイト | 空室ありの目印 |
+|---|---|
+| SUUMO | 建物名キーワード検索（`POST /jj/common/ichiran/JJ901FC001/`）に物件カードが1件でも返る |
+| アセットナビ | `<div id="room_list">` が出力される（満室時は `agreement_yet` のみ） |
+
+> `/library/` ページは満室でも常にアーカイブ表示なので判定には使いません（足立区14棟で実測確認済み）。参照リンクとしてのみ保持しています。
+
+取得失敗は「空室なし」と解釈せず、3回リトライしたうえで `⚠️ 取得できなかったソース` として通知します。
 
 ## 設定変更のしかた
 

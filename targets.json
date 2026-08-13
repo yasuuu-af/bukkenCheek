@@ -1,5 +1,5 @@
 {
-  "description": "北千住・デュエットシリーズの空室監視ターゲット定義",
+  "description": "北千住・デュエットシリーズの空室監視ターゲット定義（scripts/check_vacancy.py が読む）",
   "schedule": "毎週 月・水・金 09:00 JST",
   "notify_policy": "every_run",
   "notify_channels": ["discord"],
@@ -7,81 +7,33 @@
     {
       "id": "makia",
       "name": "デュエット北千住マキア",
-      "address": "東京都足立区",
-      "built": "2013年1月",
-      "structure": "RC5階建 / 総戸数72戸",
-      "sources": [
-        {
-          "site": "SUUMO",
-          "kind": "library",
-          "url": "https://suumo.jp/library/tf_13/sc_13121/to_1001775437/",
-          "note": "建物単位のページ。募集中の部屋があれば「現在募集中の部屋」欄に出る。ユーザー指定URL。"
-        },
-        {
-          "site": "アセットナビ",
-          "kind": "rooms",
-          "url": "https://www.assetnavi.co.jp/rent/5752/rooms",
-          "note": "建物単位の部屋一覧。満室時は「満室一覧」表記で賃料が **** になる。"
-        },
-        {
-          "site": "アセットナビ",
-          "kind": "building",
-          "url": "https://www.assetnavi.co.jp/rent/5752",
-          "note": "建物トップ。"
-        },
-        {
-          "site": "アセットナビ",
-          "kind": "room_archive",
-          "url": "https://www.assetnavi.co.jp/rent/5752/39263",
-          "note": "ユーザー当初指定URL。1部屋(2LDK/55.03m2)の過去情報ページなので単体では監視に不十分。参考として保持。"
-        }
-      ]
+      "spec": "2013年1月築 / RC5階建 / 総戸数72戸",
+      "suumo_keyword": "デュエット北千住マキア",
+      "suumo_library": "https://suumo.jp/library/tf_13/sc_13121/to_1001775437/",
+      "assetnavi_rooms": "https://www.assetnavi.co.jp/rent/5752/rooms",
+      "agency_pages": []
     },
     {
       "id": "serena",
       "name": "デュエット北千住セレナ",
-      "address": "東京都足立区日ノ出町",
-      "built": "2005年3月",
-      "structure": "RC8階建 / 総戸数36戸",
-      "access": "東京メトロ日比谷線 北千住駅 徒歩8分 / 東武伊勢崎線 牛田駅 徒歩14分",
-      "sources": [
-        {
-          "site": "SUUMO",
-          "kind": "library",
-          "url": "https://suumo.jp/library/tf_13/sc_13121/to_1001133916/",
-          "note": "建物単位のページ。SUUMOの掲載終了物件URLはここへ301リダイレクトされる。"
-        },
-        {
-          "site": "アイレントホーム",
-          "kind": "building",
-          "url": "https://kitasenjyu.airenthome.co.jp/build-3758376/",
-          "note": "セレナはアセットナビに建物ページが存在しないため、仲介各社ページで補完する。"
-        },
-        {
-          "site": "シティモバイル",
-          "kind": "building",
-          "url": "https://www.citymobile.co.jp/catalog/1209/92138",
-          "note": "空室情報ページ。"
-        },
-        {
-          "site": "ハウスコム",
-          "kind": "building",
-          "url": "https://www.housecom.jp/detail_2000748919/",
-          "note": "建物情報ページ。"
-        }
+      "spec": "2005年3月築 / RC8階建 / 総戸数36戸 / 北千住駅 徒歩8分",
+      "suumo_keyword": "デュエット北千住セレナ",
+      "suumo_library": "https://suumo.jp/library/tf_13/sc_13121/to_1001133916/",
+      "assetnavi_rooms": null,
+      "agency_pages": [
+        "https://kitasenjyu.airenthome.co.jp/build-3758376/"
       ]
     }
   ],
-  "supplementary_search": {
-    "note": "上記の固定URLに加え、毎回ウェブ検索で新規掲載を横断チェックする。",
-    "queries": [
-      "デュエット北千住マキア 空室 賃貸",
-      "デュエット北千住セレナ 空室 賃貸"
-    ]
-  },
-  "notes": [
-    "SUUMOのライブラリ(library)ページは、募集が無いとき『このページは過去の掲載情報を元に作成しています。』と表示される。この文言の有無が空室判定の主シグナル。",
-    "SUUMOの個別物件ページ(/chintai/jnc_*, /chintai/bc_*)は掲載終了すると library ページへ301リダイレクトされる。リダイレクト=掲載終了。",
-    "アセットナビは満室時に賃料を **** でマスクし『満室』ラベルを付ける。"
-  ]
+  "signals": {
+    "suumo": {
+      "endpoint": "https://suumo.jp/jj/common/ichiran/JJ901FC001/",
+      "method": "POST",
+      "params": {"ar": "030", "bs": "040", "kwd": "<建物名>"},
+      "note": "SUUMOの建物名キーワード検索。掲載中の部屋があれば cassette カードが返る。0件なら物件リンクが1本も無い。ライブラリ(/library/)ページは常にアーカイブ表示なので空室判定には使えない（検証済み）。"
+    },
+    "assetnavi": {
+      "note": "空室があるときだけ <div id=\"room_list\"> と <h2>◯◯の空室一覧</h2> が出る。満室のときは id=\"agreement_yet\"（満室一覧）のみで、募集中カウンタの <li class=\"empty_rooms\"> はHTMLコメントで潰されている。部屋行は <tr data-current data-roomplan data-space data-price> に構造化データが入っている。"
+    }
+  }
 }
