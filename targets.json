@@ -1,7 +1,8 @@
 {
   "description": "北千住・デュエットシリーズの空室監視ターゲット定義",
   "schedule": "毎週 月・水・金 09:00 JST",
-  "notify_policy": "change_only",
+  "notify_policy": "every_run",
+  "notify_channels": ["discord"],
   "buildings": [
     {
       "id": "makia",

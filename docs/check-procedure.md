@@ -70,11 +70,20 @@ MD
 
 **取得失敗のソースがあったとき:** `--status error --detail "<どのソースがどう失敗したか>"` で送る。黙って握り潰さない。
 
-**変化がなかったとき:** `notify_discord.py` を**呼ばない**（`notify_policy: change_only`）。
+**変化がなかったとき（`notify_policy: every_run` なので毎回送る）:**
 
-> 毎回ハートビートが欲しくなったら、`targets.json` の `notify_policy` を `every_run` に変え、変化なしの回も `--status none` で送るようにする。
+```bash
+python3 scripts/notify_discord.py \
+  --status none \
+  --detail "マキア・セレナともに空室なし" \
+  --checked-at "$(date -Iseconds)"
+```
 
-`DISCORD_WEBHOOK_URL` が未設定でスクリプトが終了した場合は、その旨を応答の末尾に1行書く。空室の報告自体は必ず出す。
+これがハートビートを兼ねる。Discord に投稿が無い日は仕組みが止まっているサインなので、**必ず毎回送ること**。
+
+> 静かにしたくなったら `targets.json` の `notify_policy` を `change_only` に戻し、変化なしの回はスクリプトを呼ばないようにする。
+
+送信に失敗した場合は、その旨を応答の末尾に1行書く。空室の報告自体は必ず出す。
 
 **Webhook URL は絶対にコミット・出力しないこと。** このリポジトリは public。
 
