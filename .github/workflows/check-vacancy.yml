@@ -1,0 +1,39 @@
+name: 空室チェック
+
+# 月・水・金 09:00 JST = 00:00 UTC
+on:
+  schedule:
+    - cron: "0 0 * * 1,3,5"
+  workflow_dispatch:        # 手動実行もできる
+
+permissions:
+  contents: write           # state.json / history.md を push するため
+
+concurrency:
+  group: vacancy-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/kitasenjuku-property-check-gm5imz
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 空室チェックを実行して Discord に通知
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python3 scripts/check_vacancy.py
+
+      - name: 記録をコミット
+        run: |
+          git config user.name  "bukkencheek-bot"
+          git config user.email "noreply@github.com"
+          git add state.json history.md
+          git diff --staged --quiet || git commit -m "chore: 空室チェック $(date -u -d '+9 hours' +%Y-%m-%d)"
+          git push
