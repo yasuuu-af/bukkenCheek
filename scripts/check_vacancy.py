@@ -286,7 +286,7 @@ def git_commit(now: dt.datetime, status: str) -> None:
     label = {"vacant": "空室あり", "error": "取得失敗あり", "none": "変化なし"}[status]
     branch = "claude/kitasenjuku-property-check-gm5imz"
     cmds = [
-        ["git", "add", "state.json", "history.md"],
+        ["git", "add", "state.json", "history.md", "docs/index.html"],
         ["git", "-c", "user.name=bukkencheek-bot", "-c", "user.email=noreply@anthropic.com",
          "commit", "-m", f"chore: 空室チェック {now:%Y-%m-%d}（{label}）"],
         ["git", "push", "origin", f"HEAD:{branch}"],
@@ -342,6 +342,12 @@ def main() -> int:
 
     write_state(results, status, now, prev)
     append_history(results, status, now)
+
+    # 公開ダッシュボード（GitHub Pages）を最新の state から作り直す
+    r = subprocess.run([sys.executable, str(ROOT / "scripts" / "render_dashboard.py")],
+                       capture_output=True, text=True, cwd=ROOT)
+    print(r.stdout.strip() or r.stderr.strip())
+
     if args.commit:
         git_commit(now, status)
 

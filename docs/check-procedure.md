@@ -65,7 +65,11 @@ POST https://suumo.jp/jj/common/ichiran/JJ901FC001/
 
 ## ダッシュボード
 
-`dashboard.html` は手で更新する。Artifact として再発行する場合は `docs/dashboard-url.txt` のURLを必ず `url` 引数に渡すこと（渡さないと別URLになりブックマークが切れる）。
+**https://yasuuu-af.github.io/bukkenCheek/** （GitHub Pages・公開）
+
+`scripts/render_dashboard.py` が `state.json` から `docs/index.html` を生成する。`check_vacancy.py` が毎回呼ぶので、チェックが走ればページも自動で最新になる。手で編集しないこと（次回実行で上書きされる）。
+
+見た目を変えたいときは `render_dashboard.py` の `TEMPLATE` を編集する。
 
 ## やらないこと
 

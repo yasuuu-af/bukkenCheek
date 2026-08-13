@@ -26,7 +26,9 @@ import sys
 import urllib.error
 import urllib.request
 
-DASHBOARD_URL = "https://claude.ai/code/artifact/54381015-6267-4a8f-b6d3-4db54ad305c2"
+# GitHub Pages で公開しているダッシュボード。チェックのたびに Python が中身を作り直すので、
+# ここに貼られたリンクは常に最新を指す。誰でもURLを開けば見られる。
+DASHBOARD_URL = "https://yasuuu-af.github.io/bukkenCheek/"
 REPO_URL = "https://github.com/yasuuu-af/bukkenCheek"
 
 # 毎回の投稿に必ず載せる監視元リンク。ここを見れば自分でも確認できる。

@@ -14,7 +14,13 @@
 | 変化なし | 藍 | `変化なし` の1件（ハートビート） |
 | 取得失敗 | 琥珀 | `⚠️ チェックに失敗したソースがあります` ＋ 失敗内容 |
 
-常設ダッシュボード（URLは `docs/dashboard-url.txt`）も毎回最新に更新されます。
+## ダッシュボード（公開）
+
+**https://yasuuu-af.github.io/bukkenCheek/**
+
+チェックが走るたびに Python が中身を作り直すので、常に最新です。URLを知っていれば誰でも見られます（リポジトリが public のため）。
+
+> 初回のみ GitHub の設定が必要です: Settings → Pages → Source を **Deploy from a branch**、Branch を `claude/kitasenjuku-property-check-gm5imz` の **`/docs`** フォルダに設定してください。
 
 ### Discord の設定
 
@@ -50,9 +56,9 @@ python3 scripts/check_vacancy.py --fixture ミレアビターレ北千住   # �
 | `targets.json` | 監視対象の建物とURL一覧。**追加・削除はここを編集** |
 | `state.json` | 前回の空室状態。差分判定の基準 |
 | `history.md` | 毎回のチェック結果ログ |
+| `scripts/render_dashboard.py` | `state.json` から公開ダッシュボードを生成 |
+| `docs/index.html` | **生成物。**GitHub Pages が配信する。手で編集しない |
 | `docs/check-procedure.md` | 判定ロジックの根拠と運用手順 |
-| `docs/dashboard-url.txt` | ダッシュボードの固定URL |
-| `dashboard.html` | ダッシュボードのソース |
 | `.github/workflows/check-vacancy.yml` | GitHub Actions で自動実行する場合の定義 |
 
 ## 監視対象
