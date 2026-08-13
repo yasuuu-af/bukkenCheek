@@ -7,7 +7,7 @@ on:
   workflow_dispatch:        # 手動実行もできる
 
 permissions:
-  contents: write           # state.json / history.md を push するため
+  contents: write           # state.json / history.md / docs/index.html を push するため
 
 concurrency:
   group: vacancy-check
@@ -30,10 +30,10 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python3 scripts/check_vacancy.py
 
-      - name: 記録をコミット
+      - name: 記録とダッシュボードをコミット
         run: |
           git config user.name  "bukkencheek-bot"
           git config user.email "noreply@github.com"
-          git add state.json history.md
+          git add state.json history.md docs/index.html
           git diff --staged --quiet || git commit -m "chore: 空室チェック $(date -u -d '+9 hours' +%Y-%m-%d)"
           git push
