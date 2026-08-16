@@ -1,6 +1,8 @@
 name: 空室チェック
 
 # 月・水・金 09:00 JST = 00:00 UTC
+# GitHub の cron は混雑時に数十分〜数時間遅れることがある（ベストエフォート）。
+# 週3回の空室チェックに分単位の正確さは不要なので、遅延は許容している。
 on:
   schedule:
     - cron: "0 0 * * 1,3,5"
@@ -17,13 +19,24 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: claude/kitasenjuku-property-check-gm5imz
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+
+      - name: Secret の有無を確認
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "::error::リポジトリ Secret 'DISCORD_WEBHOOK_URL' が未設定です。"
+            echo "::error::Settings → Secrets and variables → Actions → New repository secret から登録してください。"
+            exit 1
+          fi
+          echo "Secret は設定されています。"
 
       - name: 空室チェックを実行して Discord に通知
         env:
