@@ -1,6 +1,6 @@
 {
-  "last_checked": "2026-08-26T10:49:36.548080+09:00",
-  "last_change_detected": "2026-08-26T10:49:36.548080+09:00",
+  "last_checked": "2026-08-28T20:10:16.946314+09:00",
+  "last_change_detected": "2026-08-28T20:10:16.946314+09:00",
   "buildings": {
     "makia": {
       "name": "デュエット北千住マキア",
@@ -9,7 +9,6 @@
         "SUUMO:100522916538",
         "SUUMO:100522916705",
         "SUUMO:100522958395",
-        "SUUMO:100522958994",
         "SUUMO:100522959547",
         "SUUMO:100522959970",
         "SUUMO:100522963768",
@@ -17,13 +16,11 @@
         "SUUMO:100522990023",
         "SUUMO:100522990024",
         "SUUMO:100522990374",
-        "SUUMO:100522994526",
         "SUUMO:100522995341",
         "SUUMO:100522995709",
         "SUUMO:100523033538",
         "SUUMO:100523034683",
         "SUUMO:100523037513",
-        "SUUMO:100523038866",
         "SUUMO:100523047167",
         "SUUMO:100523049156",
         "SUUMO:100523049531",
@@ -33,9 +30,22 @@
         "SUUMO:100523123763",
         "SUUMO:100523133734",
         "SUUMO:100523176292",
-        "SUUMO:100523194515"
+        "SUUMO:100523194515",
+        "SUUMO:100523593795"
       ],
       "available_rooms": [
+        {
+          "source": "SUUMO",
+          "id": "100523593795",
+          "url": "https://suumo.jp/chintai/bc_100523593795/",
+          "rent": "14.6万円",
+          "admin": "10000円",
+          "deposit": "29.2万円/14.6万円",
+          "area": "55.03m²",
+          "plan": "2LDK",
+          "floor": "",
+          "headline": "14.6万円 東京メトロ日比谷線/北千住"
+        },
         {
           "source": "SUUMO",
           "id": "100523194515",
@@ -158,18 +168,6 @@
         },
         {
           "source": "SUUMO",
-          "id": "100523038866",
-          "url": "https://suumo.jp/chintai/bc_100523038866/",
-          "rent": "14.6万円",
-          "admin": "10000円",
-          "deposit": "29.2万円/14.6万円",
-          "area": "55.03m²",
-          "plan": "2LDK",
-          "floor": "",
-          "headline": "14.6万円 東京メトロ千代田線/北千住"
-        },
-        {
-          "source": "SUUMO",
           "id": "100523037513",
           "url": "https://suumo.jp/chintai/bc_100523037513/",
           "rent": "14.6万円",
@@ -220,18 +218,6 @@
           "source": "SUUMO",
           "id": "100522995341",
           "url": "https://suumo.jp/chintai/bc_100522995341/",
-          "rent": "14.6万円",
-          "admin": "10000円",
-          "deposit": "29.2万円/14.6万円",
-          "area": "55.03m²",
-          "plan": "2LDK",
-          "floor": "",
-          "headline": "14.6万円 東京メトロ日比谷線/北千住"
-        },
-        {
-          "source": "SUUMO",
-          "id": "100522994526",
-          "url": "https://suumo.jp/chintai/bc_100522994526/",
           "rent": "14.6万円",
           "admin": "10000円",
           "deposit": "29.2万円/14.6万円",
@@ -316,18 +302,6 @@
           "source": "SUUMO",
           "id": "100522959547",
           "url": "https://suumo.jp/chintai/bc_100522959547/",
-          "rent": "14.6万円",
-          "admin": "10000円",
-          "deposit": "29.2万円/14.6万円",
-          "area": "55.03m²",
-          "plan": "2LDK",
-          "floor": "",
-          "headline": "14.6万円 東京メトロ千代田線/北千住"
-        },
-        {
-          "source": "SUUMO",
-          "id": "100522958994",
-          "url": "https://suumo.jp/chintai/bc_100522958994/",
           "rent": "14.6万円",
           "admin": "10000円",
           "deposit": "29.2万円/14.6万円",
