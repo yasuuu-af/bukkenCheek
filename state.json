@@ -1,15 +1,28 @@
 {
-  "last_checked": "2026-09-16T13:36:31.350976+09:00",
-  "last_change_detected": "2026-09-16T13:36:31.350976+09:00",
+  "last_checked": "2026-09-18T13:26:48.682819+09:00",
+  "last_change_detected": "2026-09-18T13:26:48.682819+09:00",
   "buildings": {
     "makia": {
       "name": "デュエット北千住マキア",
       "vacancy": true,
       "room_keys": [
         "SUUMO:100522987013",
-        "SUUMO:100523072924"
+        "SUUMO:100523072924",
+        "SUUMO:100523133734"
       ],
       "available_rooms": [
+        {
+          "source": "SUUMO",
+          "id": "100523133734",
+          "url": "https://suumo.jp/chintai/bc_100523133734/",
+          "rent": "14.6万円",
+          "admin": "10000円",
+          "deposit": "29.2万円/14.6万円",
+          "area": "55.03m²",
+          "plan": "2LDK",
+          "floor": "",
+          "headline": "14.6万円 東京メトロ千代田線/北千住"
+        },
         {
           "source": "SUUMO",
           "id": "100523072924",
