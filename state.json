@@ -1,12 +1,27 @@
 {
-  "last_checked": "2026-09-25T13:41:59.788549+09:00",
-  "last_change_detected": "2026-09-23T13:33:15.796776+09:00",
+  "last_checked": "2026-09-28T14:09:18.267859+09:00",
+  "last_change_detected": "2026-09-28T14:09:18.267859+09:00",
   "buildings": {
     "makia": {
       "name": "デュエット北千住マキア",
-      "vacancy": false,
-      "room_keys": [],
-      "available_rooms": [],
+      "vacancy": true,
+      "room_keys": [
+        "SUUMO:100529009008"
+      ],
+      "available_rooms": [
+        {
+          "source": "SUUMO",
+          "id": "100529009008",
+          "url": "https://suumo.jp/chintai/bc_100529009008/",
+          "rent": "13.3万円",
+          "admin": "10000円",
+          "deposit": "26.6万円/13.3万円",
+          "area": "47.01m²",
+          "plan": "1LDK",
+          "floor": "",
+          "headline": "13.3万円 ＪＲ常磐線/北千住"
+        }
+      ],
       "errors": []
     },
     "serena": {
