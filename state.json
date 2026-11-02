@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-30T14:31:48.281918+09:00",
+  "last_checked": "2026-11-02T14:45:09.468693+09:00",
   "last_change_detected": "2026-10-16T13:17:16.518366+09:00",
   "buildings": {
     "makia": {
@@ -7,9 +7,7 @@
       "vacancy": false,
       "room_keys": [],
       "available_rooms": [],
-      "errors": [
-        "アセットナビ: https://www.assetnavi.co.jp/rent/5752/rooms: HTTP Error 503: Service Temporarily Unavailable"
-      ]
+      "errors": []
     },
     "serena": {
       "name": "デュエット北千住セレナ",
